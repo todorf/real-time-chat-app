@@ -1,11 +1,11 @@
 <?php
 
+use App\Enums\TypeOptions;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['private', 'group'])->default('private');
+            $table
+                ->enum('type', TypeOptions::getAllOptions())
+                ->default(TypeOptions::PRIVATE->value);
             $table->string('name', 255);
             $table->timestamps();
         });
