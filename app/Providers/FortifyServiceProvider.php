@@ -28,7 +28,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $this->configureActions();
         // $this->configureViews();
-        // $this->configureRateLimiting();
+        $this->configureRateLimiting();
         Fortify::loginView(fn() => view('livewire.auth.login'));
         Fortify::registerView(fn() => view('livewire.auth.register'));
     }
