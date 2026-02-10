@@ -43,6 +43,10 @@
                               @method('DELETE')
                               <button type="submit" onclick="return confirm('Are you sure you want to delete this conversation?')">Delete</button>
                             </form>
+                            <form action="{{ route('conversations.join', $conversation->id) }}" method="POST">
+                              @csrf
+                              <button type="submit">Join</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

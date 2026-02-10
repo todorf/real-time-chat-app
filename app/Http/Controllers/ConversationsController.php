@@ -108,4 +108,37 @@ class ConversationsController extends Controller
                 'Conversation ' . $conversation->name . ' deleted successfully',
             );
     }
+
+    public function show(Conversation $conversation)
+    {
+        return view('conversations.show', compact('conversation'));
+    }
+
+    public function join(Conversation $conversation)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'You must be logged in to join a conversation');
+        }
+
+        try {
+            $conversation->conversationUser()->create(['user_id' => $user->id]);
+        } catch (Exception $e) {
+            return redirect()
+                ->route('conversations.index')
+                ->with(
+                    'error',
+                    'Failed to join conversation: ' . $e->getMessage(),
+                );
+        }
+
+        return redirect()
+            ->route('conversations.index')
+            ->with(
+                'success',
+                'You have joined conversation ' . $conversation->name,
+            );
+    }
 }
