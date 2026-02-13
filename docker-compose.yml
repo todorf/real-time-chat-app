@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+    chat-app-php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: chat-app-php
+        container_name: chat-app-php
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - ./Docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        networks:
+            - chat-app-network
+
+    #Nginx Service
+    chat-app-nginx:
+        image: nginx:alpine
+        container_name: chat-app-nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./:/var/www
+            - ./Docker/nginx/conf.d:/etc/nginx/conf.d/
+        networks:
+            - chat-app-network
+
+    #MySQL Service
+    chat-app-mysql:
+        image: mysql:8.0
+        container_name: chat-app-mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_DATABASE: chat_app
+            MYSQL_ROOT_PASSWORD: root_password
+            SERVICE_NAME: mysql
+            SERVICE_TAGS: dev
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./Docker/mysql/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - chat-app-network
+
+networks:
+    chat-app-network:
+        driver: bridge
+
+#Volumes
+volumes:
+    dbdata:
+        driver: local
