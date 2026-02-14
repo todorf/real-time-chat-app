@@ -17,29 +17,22 @@ Route::resource('conversations', ConversationsController::class)->middleware(
     'auth',
 );
 
-Route::prefix('conversations')
-    ->name('conversations.')
-    ->controller(ConversationsController::class)
-    ->middleware('auth')
-    ->group(function () {
-        Route::post('{conversation}/join', 'join')->name('join');
-    });
-
 Route::prefix('users')
     ->name('users.')
     ->controller(UserConversationController::class)
     ->middleware('auth')
     ->group(function () {
-        Route::get('{user}/conversations', 'conversations')->name(
-            'conversations',
-        );
-        Route::post('{user}/conversations/{conversation}/join', 'join')->name(
-            'conversations.join',
-        );
-        Route::delete(
-            '{user}/conversations/{conversation}/leave',
-            'leave',
-        )->name('conversations.leave');
+        Route::name('conversations')->group(function () {
+            Route::get('{user}/conversations', 'conversations');
+            Route::post(
+                '{user}/conversations/{conversation}/join',
+                'join',
+            )->name('.join');
+            Route::delete(
+                '{user}/conversations/{conversation}/leave',
+                'leave',
+            )->name('.leave');
+        });
     });
 
 require __DIR__ . '/settings.php';
