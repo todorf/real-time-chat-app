@@ -34,8 +34,12 @@ Route::prefix('users')
             'conversations',
         );
         Route::post('{user}/conversations/{conversation}/join', 'join')->name(
-            'join',
+            'conversations.join',
         );
+        Route::delete(
+            '{user}/conversations/{conversation}/leave',
+            'leave',
+        )->name('conversations.leave');
     });
 
 require __DIR__ . '/settings.php';

@@ -24,6 +24,11 @@
                     <td>{{ $conversation->type }}</td>
                     <td>
                         <a href="{{ route('conversations.show', $conversation->id) }}">View</a>
+                        <form action="{{ route('users.conversations.leave', [auth()->user(), $conversation->id]) }}" method="POST">
+                            @csrf    
+                            @method('DELETE')
+                            <button type="submit">Leave</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
