@@ -17,6 +17,7 @@
     <h1>Conversations</h1>
 
     <a href="{{ route('conversations.create') }}">Create Conversation</a>
+    <a href="{{ route('users.conversations', auth()->user()) }}">My Conversations</a>
 
     <div>
         <table>
@@ -43,7 +44,7 @@
                               @method('DELETE')
                               <button type="submit" onclick="return confirm('Are you sure you want to delete this conversation?')">Delete</button>
                             </form>
-                            <form action="{{ route('conversations.join', $conversation->id) }}" method="POST">
+                            <form action="{{ route('users.join', [auth()->user(), $conversation->id]) }}" method="POST">
                               @csrf
                               <button type="submit">Join</button>
                             </form>

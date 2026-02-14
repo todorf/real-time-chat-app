@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConversationsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserConversationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,11 +27,14 @@ Route::prefix('conversations')
 
 Route::prefix('users')
     ->name('users.')
-    ->controller(UserController::class)
+    ->controller(UserConversationController::class)
     ->middleware('auth')
     ->group(function () {
         Route::get('{user}/conversations', 'conversations')->name(
             'conversations',
+        );
+        Route::post('{user}/conversations/{conversation}/join', 'join')->name(
+            'join',
         );
     });
 
