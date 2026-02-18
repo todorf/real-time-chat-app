@@ -26,6 +26,13 @@ class UserConversationController extends Controller
 
         try {
             $conversation->conversationUser()->create(['user_id' => $user->id]);
+
+            return redirect()
+                ->route('conversations.index')
+                ->with(
+                    'success',
+                    'You have joined conversation ' . $conversation->name,
+                );
         } catch (Exception $e) {
             return redirect()
                 ->route('conversations.index')
@@ -34,13 +41,6 @@ class UserConversationController extends Controller
                     'Failed to join conversation: ' . $e->getMessage(),
                 );
         }
-
-        return redirect()
-            ->route('conversations.index')
-            ->with(
-                'success',
-                'You have joined conversation ' . $conversation->name,
-            );
     }
 
     public function leave(User $user, Conversation $conversation)
@@ -56,6 +56,7 @@ class UserConversationController extends Controller
 
         try {
             $conversationUser->delete();
+
             return redirect()
                 ->route('conversations.index')
                 ->with('success', 'You left the conversation');

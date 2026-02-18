@@ -44,6 +44,10 @@ class ConversationsController extends Controller
 
         try {
             Conversation::create($request->only('name', 'type'));
+
+            return redirect()
+                ->route('conversations.index')
+                ->with('success', 'Conversation created successfully');
         } catch (Exception $e) {
             return redirect()
                 ->route('conversations.create')
@@ -52,10 +56,6 @@ class ConversationsController extends Controller
                     'Failed to create conversation: ' . $e->getMessage(),
                 );
         }
-
-        return redirect()
-            ->route('conversations.index')
-            ->with('success', 'Conversation created successfully');
     }
 
     public function update(Request $request, Conversation $conversation)
@@ -71,6 +71,15 @@ class ConversationsController extends Controller
 
         try {
             $conversation->update($request->only('name', 'type'));
+
+            return redirect()
+                ->route('conversations.index', $conversation->id)
+                ->with(
+                    'success',
+                    'Conversation ' .
+                        $conversation->name .
+                        ' updated successfully',
+                );
         } catch (Exception $e) {
             return redirect()
                 ->route('conversations.edit', $conversation->id)
@@ -79,19 +88,21 @@ class ConversationsController extends Controller
                     'Failed to update conversation: ' . $e->getMessage(),
                 );
         }
-
-        return redirect()
-            ->route('conversations.index', $conversation->id)
-            ->with(
-                'success',
-                'Conversation ' . $conversation->name . ' updated successfully',
-            );
     }
 
     public function destroy(Conversation $conversation)
     {
         try {
             $conversation->delete();
+
+            return redirect()
+                ->route('conversations.index')
+                ->with(
+                    'success',
+                    'Conversation ' .
+                        $conversation->name .
+                        ' deleted successfully',
+                );
         } catch (Exception $e) {
             return redirect()
                 ->route('conversations.index')
@@ -100,13 +111,6 @@ class ConversationsController extends Controller
                     'Failed to delete conversation: ' . $e->getMessage(),
                 );
         }
-
-        return redirect()
-            ->route('conversations.index')
-            ->with(
-                'success',
-                'Conversation ' . $conversation->name . ' deleted successfully',
-            );
     }
 
     public function show(Conversation $conversation)
