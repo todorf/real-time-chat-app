@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -21,11 +21,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -67,15 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(MessageRead::class);
     }
 
-    /**
-     * Get the user's initials
-     */
-    public function initials(): string
+    public function conversations(): Collection
     {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->take(2)
-            ->map(fn($word) => Str::substr($word, 0, 1))
-            ->implode('');
+        return $this->conversationUser()
+            ->with('conversation')
+            ->get()
+            ->pluck('conversation');
     }
 }

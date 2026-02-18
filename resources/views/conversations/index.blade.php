@@ -3,20 +3,10 @@
 @section('title', 'Conversations')
 
 @section('content')
-    @if (session('success'))
-        <div>
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div>
-            {{ session('error') }}
-        </div>
-    @endif
-
     <h1>Conversations</h1>
 
     <a href="{{ route('conversations.create') }}">Create Conversation</a>
+    <a href="{{ route('users.conversations', auth()->user()) }}">My Conversations</a>
 
     <div>
         <table>
@@ -42,6 +32,10 @@
                               @csrf
                               @method('DELETE')
                               <button type="submit" onclick="return confirm('Are you sure you want to delete this conversation?')">Delete</button>
+                            </form>
+                            <form action="{{ route('users.conversations.join', [auth()->user(), $conversation->id]) }}" method="POST">
+                              @csrf
+                              <button type="submit">Join</button>
                             </form>
                         </td>
                     </tr>
