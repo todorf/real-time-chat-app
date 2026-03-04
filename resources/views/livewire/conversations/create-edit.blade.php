@@ -17,7 +17,11 @@
         ])
 
         <br>
-        <button type="submit">Update Conversation</button>
+
+        <div>
+            <a href="{{ route('conversations.index') }}" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary float-end">Update Conversation</button>
+        </div>
     </form>
 @else
     <form action="{{ route('conversations.store') }}" method="POST">
@@ -36,6 +40,10 @@
         ])
 
         <br>
-        <button type="submit">Create Conversation</button>
+
+        <div>
+            <a href="{{ route('conversations.index') }}" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary float-end">Create Conversation</button>
+        </div>
     </form>
 @endif

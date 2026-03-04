@@ -1,4 +1,4 @@
-<div class="position-absolute top-0 start-0">
+<div class="position-absolute top-0 start-0 z-3 px-1">
     <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
         <i class="bi bi-list"></i>
     </button>
