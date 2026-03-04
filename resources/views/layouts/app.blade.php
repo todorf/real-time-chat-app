@@ -20,9 +20,9 @@
             </div>
         @endif
 
-        @if (auth()->user())
+        @auth
             @include('layouts.components.sidebar')
-        @endif
+        @endauth
 
         @yield('content')
     </main>
