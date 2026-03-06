@@ -2,14 +2,14 @@
     <form action="{{ route('conversations.update', $conversation->id) }}" method="POST">
         @csrf
         @method('PUT')
-        @include('forms.__input_text', [
+        @include('forms._input_text', [
             'name' => 'name',
             'placeholder' => 'Enter conversation name',
             'value' => $conversation->name,
             'type' => 'text',
         ])
 
-        @include('forms.__input_select', [
+        @include('forms._input_select', [
             'name' => 'type',
             'placeholder' => 'Select Type',
             'selected' => $conversation->type,
@@ -26,13 +26,13 @@
 @else
     <form action="{{ route('conversations.store') }}" method="POST">
         @csrf
-        @include('forms.__input_text', [
+        @include('forms._input_text', [
             'name' => 'name',
             'placeholder' => 'Enter conversation name',
             'type' => 'text',
         ])
 
-        @include('forms.__input_select', [
+        @include('forms._input_select', [
             'name' => 'type',
             'placeholder' => 'Select Type',
             'selected' => '',

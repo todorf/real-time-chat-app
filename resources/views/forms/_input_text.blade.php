@@ -1,7 +1,7 @@
-<div>
+<div class="{{ $class ?? '' }}">
     <input
-      type="{{ $type }}"
-      class="form-control mb-3"
+      type="{{ $type ?? 'text' }}"
+      class="form-control {{ $margin ?? 'mb-3' }}"
       name="{{ $name }}"
       placeholder="{{ $placeholder }}"
       value="{{ $value ?? '' }}"

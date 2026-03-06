@@ -10,12 +10,12 @@
                 <hr class="py-1">
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
-                        @include('forms.__input_text', [
+                        @include('forms._input_text', [
                             'name' => 'email',
                             'placeholder' => 'Email',
                             'type' => 'email',
                         ])
-                        @include('forms.__input_text', [
+                        @include('forms._input_text', [
                             'name' => 'password',
                             'placeholder' => 'Password',
                             'type' => 'password',
