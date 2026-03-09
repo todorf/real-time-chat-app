@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     @livewireStyles
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <main>
@@ -18,7 +19,11 @@
                 {{ session('error') }}
             </div>
         @endif
-        
+
+        @auth
+            @include('layouts.components.sidebar')
+        @endauth
+
         @yield('content')
     </main>
     @livewireScripts

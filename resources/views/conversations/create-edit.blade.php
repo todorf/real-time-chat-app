@@ -3,7 +3,15 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
+    <div class="container-fluid d-flex justify-content-center align-items-start min-vh-100 mt-4">
+        <div class="card flex-fill mt-5">
+            <div class="card-tittle">
+                <h3 class="mx-3 my-3">{{ $title }}</h3>
+            </div>
 
-    <livewire:conversations.create-edit :conversation="$conversation" />
+            <div class="card-body">
+                <livewire:conversations.create-edit :conversation="$conversation" />
+            </div>
+        </div>
+    </div>
 @endsection

@@ -1,5 +1,5 @@
 <div>
-    <select name="{{ $name }}">
+    <select name="{{ $name }}" class="form-control">
         <option value="">{{ $placeholder }}</option>
         @foreach ($options as $key => $value)
             <option value="{{ $key }}" {{ $selected === $key ? 'selected' : '' }}>{{ $value }}</option>
